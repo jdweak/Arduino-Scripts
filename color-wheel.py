@@ -1,4 +1,7 @@
 #spins lights in a circle
+import time
+from adafruit_circuitplayground import cp
+
 counter = 0
 prev = 0
 cp.red_led = True
