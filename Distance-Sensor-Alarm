@@ -1,0 +1,49 @@
+#-- ExternalProximitySensorWithWarnings.py - CircuitPython code for CP --#
+
+# Import Section
+import board
+from adafruit_circuitplayground import cp
+from adafruit_hcsr04 import HCSR04
+from time import sleep
+
+# Setup Section
+led_brightness = 0.25
+t = 0
+dt = 0.25
+sonar = HCSR04(trigger_pin=board.TX, echo_pin=board.A6)
+cp.pixels.fill((255,0,0))
+cp.pixels.brightness = 0
+
+# Function Section
+def pixel_flip():
+    if cp.pixels.brightness > 0:
+        cp.pixels.brightness = 0
+    else:
+        cp.pixels.brightness = led_brightness
+
+# Loop Section
+while True:
+    try:
+        d = sonar.distance
+        # Closer than 15 cm is Dangerously Close
+        if d <=5:
+            pixel_flip()
+            if t >= 1.0:
+                cp.play_tone(440, 0.25)
+                t = 0
+        # Closer than 15 cm is Very Close
+        elif d <= 15:
+            pixel_flip()
+        # Closer than 30 cm is Close
+        elif d <= 30:
+            if t >= 1.0:
+                pixel_flip()
+                t = 0
+        # Farther than 25 cm is Safe
+        else:
+            cp.pixels.brightness = 0
+        print((d,))
+        t+=dt
+    except RuntimeError:
+        print("Retrying!")
+    sleep(dt)
