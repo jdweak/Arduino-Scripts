@@ -5,7 +5,8 @@ import board
 from adafruit_circuitplayground import cp
 from adafruit_hcsr04 import HCSR04
 from time import sleep
-from queue import Queue
+from Queue import Queue
+
 
 # Setup Section
 led_brightness = 0.25
@@ -38,7 +39,7 @@ def pixel_flip():
 
 def initializeQueue():
     for i in range(sampleRangeSize):
-        distanceData.put(doorDistance)
+        distanceData.enqueue(doorDistance)
         
 
 #Initialize section
@@ -50,20 +51,14 @@ while True:
         #take the current distance point from door
         newDistance = sonar.distance
         #update the average distance and distance data queue
-        totalDistance = totalDistance - distanceData.get()
+        totalDistance = totalDistance - int(distanceData.dequeue())
         totalDistance = totalDistance + newDistance
-        distanceData.put(newDistance)
+        distanceData.enqueue(newDistance)
         averageDistance = totalDistance / distanceData.qsize()
         
         print('average distance: ', averageDistance)
         
         
-        # Closer than 15 cm is Dangerously Close
-        if averageDistance >= openDistanceThreshold:
-            pixel_flip()
-            if t >= 1.0:
-                cp.play_tone(440, 0.25)
-                t = 0
     except RuntimeError:
         print("Retrying!")
     sleep(dt)
