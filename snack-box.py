@@ -37,9 +37,9 @@ led1.direction = digitalio.Direction.OUTPUT
 led1.value = True
 
 #how many samples must be over the limit for it to be open
-numOpenSampleThreshold = 10
+numOpenSampleThreshold = 12
 #theshold for considering the door open based on averageDistance
-openDistanceThreshold = 12
+openDistanceThreshold = 14
 #is the door open
 doorOpen = False
 #counter of how many times the door has been open
@@ -63,7 +63,7 @@ def openDoor():
     servo.angle = 0
 
 def closeDoor():
-    servo.angle = 180
+    servo.angle = 90
 
 #reset all values to full after a new interval has passed
 def resetHardware():
@@ -115,7 +115,7 @@ while True:
         print('door open counter: ', doorOpenCounter)
         print('door open t/f: ', doorOpen)
         print('snacks left: ', snacksLeft)
-        print('time: ', t)
+#        print('time: ', t)
         
     except RuntimeError:
         print("Retrying!")
