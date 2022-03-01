@@ -22,7 +22,8 @@ cp.pixels.brightness = 0
 pwm = pwmio.PWMOut(board.A1, frequency=50)
 servo = adafruit_motor.servo.Servo(pwm, min_pulse=750, max_pulse=2600)
 
-#led lights setup. the numbers after the led represents the light that should be on when that many snacks are left
+#led lights setup. the numbers after the led represents the 
+#light that should be on when that many snacks are left
 ledDoor = digitalio.DigitalInOut(board.A2)
 ledDoor.direction = digitalio.Direction.OUTPUT
 ledDoor.value = False
@@ -92,7 +93,7 @@ while True:
                 doorOpen = True
             if doorOpenCounter > numOpenSampleThreshold * 3 and doorOpenCounter % 20 == 0:
                 t += .3
-                cp.play_tone(800, 0.3)
+                cp.play_tone(3200, 0.3)
                 ledDoor.value = not ledDoor.value
         #the door is closed
         else:
