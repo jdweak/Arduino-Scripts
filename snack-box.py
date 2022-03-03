@@ -22,7 +22,7 @@ cp.pixels.brightness = 0
 pwm = pwmio.PWMOut(board.A1, frequency=50)
 servo = adafruit_motor.servo.Servo(pwm, min_pulse=750, max_pulse=2600)
 
-#led lights setup. the numbers after the led represents the 
+#led lights setup. the numbers after the led represents the
 #light that should be on when that many snacks are left
 ledDoor = digitalio.DigitalInOut(board.A2)
 ledDoor.direction = digitalio.Direction.OUTPUT
@@ -58,8 +58,8 @@ def pixel_flip():
         cp.pixels.brightness = 0
     else:
         cp.pixels.brightness = led_brightness
-            
-            
+
+
 def openDoor():
     servo.angle = 0
 
@@ -76,16 +76,16 @@ def resetHardware():
 # Loop Section
 while True:
     try:
-        print('mod value: ', t % resetInterval) 
+        print('mod value: ', t % resetInterval)
         #when the time is on the reset time, reset all variables to beginning of day values
         if round((t % resetInterval), 1) == 0.1:
             resetHardware()
             snacksLeft = snackLimit
             print('reseting')
-        
+
         #take the current distance point from door
         newDistance = sonar.distance
-        
+
         #if the door is determined to be open
         if newDistance > openDistanceThreshold:
             doorOpenCounter += 1
@@ -112,12 +112,12 @@ while True:
                 sleepTime = resetInterval - (t % resetInterval)
                 t += sleepTime
                 sleep(sleepTime)
-    
+
         print('door open counter: ', doorOpenCounter)
         print('door open t/f: ', doorOpen)
         print('snacks left: ', snacksLeft)
 #        print('time: ', t)
-        
+
     except RuntimeError:
         print("Retrying!")
     t += dt
