@@ -38,9 +38,9 @@ led1.direction = digitalio.Direction.OUTPUT
 led1.value = True
 
 #how many samples must be over the limit for it to be open
-numOpenSampleThreshold = 12
+numOpenSampleThreshold = 5
 #theshold for considering the door open based on averageDistance
-openDistanceThreshold = 14
+openDistanceThreshold = 9
 #is the door open
 doorOpen = False
 #counter of how many times the door has been open
@@ -50,7 +50,7 @@ snackLimit = 3
 #amount of snacks left in current day
 snacksLeft = snackLimit
 #How long in seconds there is between a reset of snacksLeft (default 24 hours)
-resetInterval = 20
+resetInterval = 40
 
 # Function Section
 def pixel_flip():
@@ -91,7 +91,7 @@ while True:
             doorOpenCounter += 1
             if doorOpenCounter == numOpenSampleThreshold:
                 doorOpen = True
-            if doorOpenCounter > numOpenSampleThreshold * 3 and doorOpenCounter % 20 == 0:
+            if doorOpenCounter > numOpenSampleThreshold * 5 and doorOpenCounter % 20 == 0:
                 t += .3
                 cp.play_tone(3200, 0.3)
                 ledDoor.value = not ledDoor.value
