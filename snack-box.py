@@ -1,5 +1,3 @@
-#-- ExternalProximitySensorWithWarnings.py - CircuitPython code for CP --#
-
 # Import Section
 import board
 from adafruit_circuitplayground import cp
@@ -12,18 +10,15 @@ import digitalio
 
 
 # Setup Section
-led_brightness = 0.25
-t = 0.0
-dt = 0.1
-sleepTime = 0.0
+
+#connect to sonar and servo motor
 sonar = HCSR04(trigger_pin=board.TX, echo_pin=board.A6)
-cp.pixels.fill((255,0,0))
-cp.pixels.brightness = 0
 pwm = pwmio.PWMOut(board.A1, frequency=50)
 servo = adafruit_motor.servo.Servo(pwm, min_pulse=750, max_pulse=2600)
 
 #led lights setup. the numbers after the led represents the
 #light that should be on when that many snacks are left
+led_brightness = 0.25
 ledDoor = digitalio.DigitalInOut(board.A2)
 ledDoor.direction = digitalio.Direction.OUTPUT
 ledDoor.value = False
@@ -37,6 +32,14 @@ led1 = digitalio.DigitalInOut(board.A5)
 led1.direction = digitalio.Direction.OUTPUT
 led1.value = True
 
+#Script Variables Setup
+
+#running time of program
+t = 0.0
+#time between loops of program
+dt = 0.1
+#variable for how long to sleep (calculated later in script)
+sleepTime = 0.0
 #how many samples must be over the limit for it to be open
 numOpenSampleThreshold = 5
 #theshold for considering the door open based on averageDistance
