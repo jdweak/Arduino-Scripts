@@ -1,3 +1,4 @@
+# Write your code here :-)
 # Import Section
 import board
 from adafruit_circuitplayground import cp
@@ -111,6 +112,8 @@ while True:
                 led2.value = False
             elif snacksLeft == 0:
                 led1.value = False
+                sleep(2)
+                t += 2
                 closeDoor()
                 sleepTime = resetInterval - (t % resetInterval)
                 t += sleepTime
