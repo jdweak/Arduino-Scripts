@@ -44,7 +44,7 @@ sleepTime = 0.0
 #how many samples must be over the limit for it to be open
 numOpenSampleThreshold = 5
 #theshold for considering the door open based on averageDistance
-openDistanceThreshold = 9
+openDistanceThreshold = 3.5
 #is the door open
 doorOpen = False
 #counter of how many times the door has been open
